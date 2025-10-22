@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Salesforce Canvas Demo</title>
+  <script src="https://developer.salesforce.com/files/canvas/sdk/js/canvas-all.js"></script>
+</head>
+<body>
+  <h2>Salesforce Canvas SDK Demo</h2>
+  <p id="info">Loading Salesforce context...</p>
+ 
+  <script>
+    // Called by Salesforce when the Canvas App is loaded
+    function displayInfo(message) {
+      const signedRequest = message;
+      const context = signedRequest.context;
+      document.getElementById("info").innerText =
+        `Hello ${context.user.fullName} from ${context.organization.name}!`;
+    }
+ 
+    // Wait for Salesforce Canvas message
+    Sfdc.canvas(function() {
+      Sfdc.canvas.onReady();
+      Sfdc.canvas.client.subscribe(window.parent, { name: "canvas.loaded", onData: displayInfo });
+    });
+  </script>
+</body>
+</html>
