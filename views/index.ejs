@@ -3,32 +3,28 @@
 
 <head>
   <title>Salesforce Canvas Demo</title>
-  <script type="text/javascript"
-    src="/canvas/sdk/js/canvas-all.js"></script>
+  <script src="https://qhsandbox-dev-ed.my.salesforce.com/canvas/sdk/js/65.0/canvas-all.js"></script>
 </head>
 
 <body>
   <h2>Salesforce Canvas SDK Demo</h2>
   <p id="info">Loading Salesforce context...</p>
 
-  <script>
-    // Khi SDK sẵn sàng
-    Sfdc.canvas(function () {
-      console.log("✅ Canvas SDK loaded");
-
-      // Lấy signed request từ Salesforce
-      Sfdc.canvas.client.ctx(function (ctx) {
-        console.log("Canvas context:", ctx);
-        if (ctx && ctx.user && ctx.organization) {
-          document.getElementById("info").innerText =
-            `Hello ${ctx.user.fullName} from ${ctx.organization.name}!`;
-        } else {
-          document.getElementById("info").innerText =
-            "⚠️ No Salesforce context found (are you running outside Salesforce?)";
-        }
-      });
+<script>
+  Sfdc.canvas(function() {
+    console.log("Canvas SDK loaded!");
+ 
+    // Lấy context
+    Sfdc.canvas.client.ctx(function(ctx) {
+      if (ctx && ctx.user && ctx.organization) {
+        document.getElementById("info").innerText =
+          `Hello ${ctx.user.fullName} from ${ctx.organization.name}!`;
+      } else {
+        document.getElementById("info").innerText =
+          "⚠️ No Salesforce context found (running outside Salesforce)";
+      }
     });
-  </script>
-</body>
+  });
+</script>
 
 </html>
